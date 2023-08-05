@@ -13,6 +13,7 @@
     <url>http://www.example.com</url>
 
     <properties>
+        <arrow.version>12.0.1</arrow.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -25,9 +26,38 @@
             <version>1.1.1</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-vector</artifactId>
+            <version>${arrow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-c-data</artifactId>
+            <version>${arrow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-dataset</artifactId>
+            <version>${arrow.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-memory-netty</artifactId>
+            <version>${arrow.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reactivestreams</groupId>
+            <artifactId>reactive-streams</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -48,6 +78,7 @@
                             <path>src/main/rust/arrow-datafusion-jni</path>
                             <copyTo>${project.build.directory}/classes/jni</copyTo>
                             <copyWithPlatformDir>true</copyWithPlatformDir>
+                            <release>true</release>
                         </configuration>
                     </execution>
                 </executions>
