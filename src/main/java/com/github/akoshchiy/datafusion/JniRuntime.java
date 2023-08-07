@@ -2,11 +2,11 @@ package com.github.akoshchiy.datafusion;
 
 import io.questdb.jar.jni.JarJniLoader;
 
-class JniRuntime implements Runtime {
+class JniRuntime extends JniObject implements Runtime {
 
-    private static native long createRuntime();
+    private static native long nativeCreate();
 
-    private static native void destroyRuntime(long pointer);
+    private static native void nativeDestroy(long pointer);
 
     static {
         JarJniLoader.loadLib(
@@ -16,18 +16,16 @@ class JniRuntime implements Runtime {
         );
     }
 
-    private final long pointer;
-
     public static JniRuntime create() {
-        return new JniRuntime(createRuntime());
+        return new JniRuntime(nativeCreate());
     }
 
     JniRuntime(long pointer) {
-        this.pointer = pointer;
+        super(pointer);
     }
 
     @Override
-    public void close() throws Exception {
-        destroyRuntime(pointer);
+    public void close() {
+        nativeDestroy(getPointer());
     }
 }
